@@ -10,7 +10,16 @@ interface AccessToken {
 
 type ApiToken = string;
 
-interface InvokeInput {
-  methodName: string;
+interface InvokeCallInput {
+  methodName?: string;
   arguments: object;
+}
+
+interface StationCallInput {
+  station: string;
+  arguments?: object;
+}
+
+interface ServiceCallInput {
+  serviceID?: string;
 }
