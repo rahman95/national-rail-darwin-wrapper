@@ -12,7 +12,7 @@ type ApiToken = string;
 
 interface InvokeCallInput {
   methodName?: string;
-  filter: object;
+  filter?: object;
 }
 
 interface StationCallOptions {
@@ -28,24 +28,42 @@ interface FilterObject {
 }
 
 interface ServiceCallInput {
-  serviceID?: string;
+  serviceID: string;
 }
 
 type ApiResponse = Array<ApiStationResult | ApiServiceResult>;
 
+interface ServiceInterface {
+  sta?: string;
+  eta?: string;
+  length?: string;
+  delayReason?: string;
+  origin?: {
+    location: object[];
+  };
+  destination?: {
+    location: object[];
+  };
+  operator: string;
+  operatorCode: string;
+  rsid?: string;
+  serviceID: string;
+  serviceType: string;
+}
+
 interface ApiStationResult {
   GetStationBoardResult: {
     trainServices: {
-      service: object;
+      service: Array<ServiceInterface>;
     };
   };
 }
 
 interface ApiServiceResult {
-  GetServiceDetailsResult: object;
+  GetServiceDetailsResult: Array<ServiceInterface>;
 }
 
 interface FormattedResponse {
   success: boolean;
-  data: object;
+  data: Array<object>;
 }

@@ -40,9 +40,19 @@ class NationalRailWrapper {
     return this.invoke({ methodName, filter });
   }
 
-  //   public getAll({ station, arguments }: StationCallInput) {}
+  public getAll(options: StationCallOptions): Promise<FormattedResponse> {
+    const methodName = wsdlMethodMap.get('getAll');
+    const filter = this.parseOptions(options);
 
-  //   public getServiceDetails({ serviceID }: ServiceCallInput) {}
+    return this.invoke({ methodName, filter });
+  }
+
+  public getServiceDetails({ serviceID }: ServiceCallInput): Promise<FormattedResponse> {
+    const methodName = wsdlMethodMap.get('getServiceDetails');
+    const filter = { serviceID };
+
+    return this.invoke({ methodName, filter });
+  }
 
   private parseOptions({ station, count }: StationCallOptions): FilterObject {
     const filter: FilterObject = {
