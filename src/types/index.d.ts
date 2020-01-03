@@ -15,9 +15,16 @@ interface InvokeCallInput {
   filter: object;
 }
 
-interface StationCallInput {
+interface StationCallOptions {
   station: string;
-  options?: object;
+  count?: number;
+}
+
+interface FilterObject {
+  crs: string;
+  filterType?: string;
+  filterCrs?: string;
+  numRows?: number;
 }
 
 interface ServiceCallInput {

@@ -22,29 +22,39 @@ class NationalRailWrapper {
       client.addSoapHeader(this.soapHeader);
       this.soapClient = client;
     } catch (err) {
-      console.log(err);
       throw new Error('An error occured trying to retrieve Soap Client');
     }
   }
 
-  public async getDepartures({ station, options }: StationCallInput): Promise<any> {
+  public async getDepartures(options: StationCallOptions): Promise<FormattedResponse> {
     const methodName = wsdlMethodMap.get('getDepartures');
-
-    const filter = {
-      crs: station,
-      filterType: 'to',
-    };
-
-    console.log({ options });
+    const filter = { ...this.parseOptions(options), filterType: 'to' };
 
     return this.invoke({ methodName, filter });
   }
 
-  //   public getArrivals({ station, arguments }: StationCallInput) {}
+  public getArrivals(options: StationCallOptions): Promise<FormattedResponse> {
+    const methodName = wsdlMethodMap.get('getArrivals');
+    const filter = { ...this.parseOptions(options), filterType: 'from' };
+
+    return this.invoke({ methodName, filter });
+  }
 
   //   public getAll({ station, arguments }: StationCallInput) {}
 
   //   public getServiceDetails({ serviceID }: ServiceCallInput) {}
+
+  private parseOptions({ station, count }: StationCallOptions): FilterObject {
+    const filter: FilterObject = {
+      crs: station,
+    };
+
+    if (count) {
+      filter.numRows = count;
+    }
+
+    return filter;
+  }
 
   private async invoke({ methodName, filter }: InvokeCallInput): Promise<FormattedResponse> {
     if (!this.soapClient) {
@@ -55,13 +65,9 @@ class NationalRailWrapper {
       throw new Error(`Method with name '${methodName}' not found in WsdlMap`);
     }
 
-    try {
-      // @ts-ignore
-      return this.formatResult(await this.soapClient[methodName](filter));
-    } catch (err) {
-      console.log({ err });
-      throw new Error('An error occured fetching data from Api');
-    }
+    // @ts-ignore
+    const response = await this.soapClient[methodName](filter);
+    return this.formatResult(response);
   }
 
   private formatResult(response: ApiResponse): FormattedResponse {
@@ -84,16 +90,3 @@ class NationalRailWrapper {
 }
 
 export { NationalRailWrapper };
-
-// const apiToken = 'ABC123';
-// const wrapper = new NationalRailWrapper(apiToken);
-
-// const fn = async () => {
-//   const res = await wrapper.getDepartures({ station: 'LDS' });
-
-//   console.log({ res });
-
-//   return res;
-// };
-
-// fn();
