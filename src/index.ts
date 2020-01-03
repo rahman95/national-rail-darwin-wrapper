@@ -1,4 +1,4 @@
-import soap, { Client } from 'soap';
+import { Client, createClientAsync } from 'soap';
 import { wsdlUrl, getSoapHeader, wsdlMethodMap } from './config';
 
 class NationalRailWrapper {
@@ -14,29 +14,30 @@ class NationalRailWrapper {
     this.apiToken = token;
     this.wsdlUrl = wsdlUrl;
     this.soapHeader = getSoapHeader(this.apiToken);
-    this.initClient();
   }
 
   private async initClient(): Promise<void> {
-    const client = await soap.createClientAsync(this.wsdlUrl);
-
-    if (!client) {
+    try {
+      const client = await createClientAsync(this.wsdlUrl);
+      client.addSoapHeader(this.soapHeader);
+      this.soapClient = client;
+    } catch (err) {
+      console.log(err);
       throw new Error('An error occured trying to retrieve Soap Client');
     }
-
-    client.addSoapHeader(this.soapHeader);
-    this.soapClient = client;
   }
 
-  public async getDepartures({ station, arguments }: StationCallInput): Promise<any> {
+  public async getDepartures({ station, options }: StationCallInput): Promise<any> {
     const methodName = wsdlMethodMap.get('getDepartures');
 
-    const filterArgs = {
+    const filter = {
       crs: station,
       filterType: 'to',
     };
 
-    return this.invoke({ methodName, arguments: filterArgs });
+    console.log({ options });
+
+    return this.invoke({ methodName, filter });
   }
 
   //   public getArrivals({ station, arguments }: StationCallInput) {}
@@ -45,15 +46,40 @@ class NationalRailWrapper {
 
   //   public getServiceDetails({ serviceID }: ServiceCallInput) {}
 
-  private async invoke({ methodName, arguments }: InvokeCallInput): Promise<any> {
+  private async invoke({ methodName, filter }: InvokeCallInput): Promise<FormattedResponse> {
+    if (!this.soapClient) {
+      await this.initClient();
+    }
+
     if (!methodName) {
       throw new Error(`Method with name '${methodName}' not found in WsdlMap`);
     }
 
-    const client = this.soapClient;
+    try {
+      // @ts-ignore
+      return this.formatResult(await this.soapClient[methodName](filter));
+    } catch (err) {
+      console.log({ err });
+      throw new Error('An error occured fetching data from Api');
+    }
+  }
 
-    // @ts-ignore
-    return client[`${methodName}Async`](arguments);
+  private formatResult(response: ApiResponse): FormattedResponse {
+    const [data] = response;
+    let res;
+
+    if (Object.prototype.hasOwnProperty.call(data, 'GetServiceDetailsResult')) {
+      const { GetServiceDetailsResult: serviceData } = data as ApiServiceResult;
+      res = serviceData;
+    } else {
+      const { GetStationBoardResult: stationData } = data as ApiStationResult;
+      res = stationData.trainServices.service;
+    }
+
+    return {
+      success: true,
+      data: res,
+    };
   }
 }
 
@@ -63,7 +89,9 @@ const wrapper = new NationalRailWrapper(apiToken);
 const fn = async () => {
   const res = await wrapper.getDepartures({ station: 'LDS' });
 
+  console.log({ res });
+
   return res;
 };
 
-console.log(fn());
+fn();

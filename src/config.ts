@@ -5,8 +5,8 @@ export const getSoapHeader = (apiToken: ApiToken): SoapHeader => {
 };
 
 export const wsdlMethodMap: Map<string, string> = new Map([
-  ['getDepartures', 'GetDepartureBoard'],
-  ['getArrivals', 'GetArrivalBoard'],
-  ['getAll', 'GetArrivalDepartureBoard'],
-  ['getServiceDetails', 'GetServiceDetails'],
+  ['getDepartures', 'GetDepartureBoardAsync'],
+  ['getArrivals', 'GetArrivalBoardAsync'],
+  ['getAll', 'GetArrivalDepartureBoardAsync'],
+  ['getServiceDetails', 'GetServiceDetailsAsync'],
 ]);
