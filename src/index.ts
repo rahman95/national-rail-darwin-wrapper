@@ -83,15 +83,17 @@ class NationalRailWrapper {
   }
 }
 
-const apiToken = 'ABC123';
-const wrapper = new NationalRailWrapper(apiToken);
+export { NationalRailWrapper };
 
-const fn = async () => {
-  const res = await wrapper.getDepartures({ station: 'LDS' });
+// const apiToken = 'ABC123';
+// const wrapper = new NationalRailWrapper(apiToken);
 
-  console.log({ res });
+// const fn = async () => {
+//   const res = await wrapper.getDepartures({ station: 'LDS' });
 
-  return res;
-};
+//   console.log({ res });
 
-fn();
+//   return res;
+// };
+
+// fn();
