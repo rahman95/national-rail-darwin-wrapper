@@ -1,5 +1,5 @@
 {
-  "name": "national-rail-darwin-wrapper",
+  "name": "ts-national-rail-wrapper",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
     "lint": "eslint --ext .js,.ts,.tsx ./src",
     "build": "tsc"
   },
-  "repository": "git@github.com:rahman95/national-rail-darwin-wrapper.git",
+  "repository": "git@github.com:rahman95/ts-national-rail-wrapper.git",
   "author": "Rahman Younus <rahman_95@live.co.uk>",
   "license": "MIT",
   "devDependencies": {
