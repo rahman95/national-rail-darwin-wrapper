@@ -1,4 +1,5 @@
 import { NationalRailWrapper } from '../src/index';
+import '../src/types/index';
 
 describe('Test Wrapper Class', () => {
   let apiWrapper: NationalRailWrapper;

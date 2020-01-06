@@ -1,5 +1,6 @@
 import { Client, createClientAsync } from 'soap';
 import { wsdlUrl, getSoapHeader, wsdlMethodMap } from './config';
+import './types/index';
 
 class NationalRailWrapper {
   private apiToken: ApiToken;

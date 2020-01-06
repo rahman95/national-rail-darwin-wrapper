@@ -1,3 +1,5 @@
+import './types/index';
+
 export const wsdlUrl: WsdlUrl = 'https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2016-02-16';
 
 export const getSoapHeader = (apiToken: ApiToken): SoapHeader => {

@@ -1,8 +1,8 @@
 {
   "name": "national-rail-darwin-wrapper",
   "version": "1.0.0",
-  "main": "src/index.ts",
-  "types": "src/types/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --config jest.config.json --detectOpenHandles",
     "lint": "eslint --ext .js,.ts,.tsx ./src",
@@ -16,6 +16,7 @@
     "@types/node": "^13.1.1",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
+    "@types/bluebird": "^3.5.29",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript": "^6.3.1",
@@ -31,7 +32,6 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
-    "@types/bluebird": "^3.5.29",
     "soap": "^0.30.0"
   }
 }

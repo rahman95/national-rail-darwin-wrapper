@@ -1,14 +1,16 @@
 {
     "compilerOptions": {
         "esModuleInterop": true,
+        "noImplicitAny": true,
         "lib": ["es2017"],
         "moduleResolution": "node",
         "module": "commonJS",
+        "sourceMap": true,
         "declaration": true,
         "outDir": "./dist",
         "strict": true,
         "target": "es6",
-        "typeRoots": ["src/@types", "node_modules/@types"]
+        "typeRoots": ["src/types", "node_modules/@types"]
     },
     "types": ["jest", "node"],
     "include": ["src/**/*"],
