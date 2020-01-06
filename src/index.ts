@@ -28,33 +28,33 @@ class NationalRailWrapper {
 
   public async getDepartures(options: StationCallOptions): Promise<FormattedResponse> {
     const methodName = wsdlMethodMap.get('getDepartures');
-    const filter = { ...this.parseOptions(options), filterType: 'to' };
+    const filter = { ...this.parseStationOptions(options), filterType: 'to' };
 
     return this.invoke({ methodName, filter });
   }
 
   public getArrivals(options: StationCallOptions): Promise<FormattedResponse> {
     const methodName = wsdlMethodMap.get('getArrivals');
-    const filter = { ...this.parseOptions(options), filterType: 'from' };
+    const filter = { ...this.parseStationOptions(options), filterType: 'from' };
 
     return this.invoke({ methodName, filter });
   }
 
   public getAll(options: StationCallOptions): Promise<FormattedResponse> {
     const methodName = wsdlMethodMap.get('getAll');
-    const filter = this.parseOptions(options);
+    const filter = this.parseStationOptions(options);
 
     return this.invoke({ methodName, filter });
   }
 
-  public getServiceDetails({ serviceID }: ServiceCallInput): Promise<FormattedResponse> {
+  public getServiceDetails({ serviceId }: ServiceCallInput): Promise<FormattedResponse> {
     const methodName = wsdlMethodMap.get('getServiceDetails');
-    const filter = { serviceID };
+    const filter = { serviceID: serviceId };
 
     return this.invoke({ methodName, filter });
   }
 
-  private parseOptions({ station, count }: StationCallOptions): FilterObject {
+  private parseStationOptions({ station, count = 10 }: StationCallOptions): FilterObject {
     const filter: FilterObject = {
       crs: station,
     };
@@ -75,25 +75,27 @@ class NationalRailWrapper {
       throw new Error(`Method with name '${methodName}' not found in WsdlMap`);
     }
 
-    // @ts-ignore
-    const response = await this.soapClient[methodName](filter);
+    const response = this.soapClient && (await this.soapClient[methodName](filter));
+
     return this.formatResult(response);
   }
 
   private formatResult(response: ApiResponse): FormattedResponse {
     const [data] = response;
-    let res;
+    let res = null;
 
     if (Object.prototype.hasOwnProperty.call(data, 'GetServiceDetailsResult')) {
       const { GetServiceDetailsResult: serviceData } = data as ApiServiceResult;
       res = serviceData;
-    } else {
+    }
+
+    if (Object.prototype.hasOwnProperty.call(data, 'GetStationBoardResult')) {
       const { GetStationBoardResult: stationData } = data as ApiStationResult;
       res = stationData.trainServices.service;
     }
 
     return {
-      success: true,
+      success: res !== null,
       data: res,
     };
   }

@@ -28,7 +28,7 @@ interface FilterObject {
 }
 
 interface ServiceCallInput {
-  serviceID: string;
+  serviceId: string;
 }
 
 type ApiResponse = Array<ApiStationResult | ApiServiceResult>;
@@ -65,5 +65,5 @@ interface ApiServiceResult {
 
 interface FormattedResponse {
   success: boolean;
-  data: Array<object>;
+  data: Array<ServiceInterface> | null;
 }
