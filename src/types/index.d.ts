@@ -63,7 +63,14 @@ interface ApiServiceResult {
   GetServiceDetailsResult: Array<ServiceInterface>;
 }
 
-interface FormattedResponse {
+type FormattedResponse = StationFormattedResponse | ServiceFormattedResponse;
+
+interface StationFormattedResponse {
   success: boolean;
-  data: Array<ServiceInterface> | null;
+  data: Array<ServiceInterface>;
+}
+
+interface ServiceFormattedResponse {
+  success: boolean;
+  data: ServiceInterface;
 }

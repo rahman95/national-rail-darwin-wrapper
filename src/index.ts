@@ -26,32 +26,32 @@ class NationalRailWrapper {
     }
   }
 
-  public async getDepartures(options: StationCallOptions): Promise<FormattedResponse> {
+  public async getDepartures(options: StationCallOptions): Promise<StationFormattedResponse> {
     const methodName = wsdlMethodMap.get('getDepartures');
     const filter = { ...this.parseStationOptions(options), filterType: 'to' };
 
-    return this.invoke({ methodName, filter });
+    return this.invoke({ methodName, filter }) as Promise<StationFormattedResponse>;
   }
 
-  public getArrivals(options: StationCallOptions): Promise<FormattedResponse> {
+  public getArrivals(options: StationCallOptions): Promise<StationFormattedResponse> {
     const methodName = wsdlMethodMap.get('getArrivals');
     const filter = { ...this.parseStationOptions(options), filterType: 'from' };
 
-    return this.invoke({ methodName, filter });
+    return this.invoke({ methodName, filter }) as Promise<StationFormattedResponse>;
   }
 
-  public getAll(options: StationCallOptions): Promise<FormattedResponse> {
+  public getAll(options: StationCallOptions): Promise<StationFormattedResponse> {
     const methodName = wsdlMethodMap.get('getAll');
     const filter = this.parseStationOptions(options);
 
-    return this.invoke({ methodName, filter });
+    return this.invoke({ methodName, filter }) as Promise<StationFormattedResponse>;
   }
 
-  public getServiceDetails({ serviceId }: ServiceCallInput): Promise<FormattedResponse> {
+  public getServiceDetails({ serviceId }: ServiceCallInput): Promise<ServiceFormattedResponse> {
     const methodName = wsdlMethodMap.get('getServiceDetails');
     const filter = { serviceID: serviceId };
 
-    return this.invoke({ methodName, filter });
+    return this.invoke({ methodName, filter }) as Promise<ServiceFormattedResponse>;
   }
 
   private parseStationOptions({ station, count = 10 }: StationCallOptions): FilterObject {
@@ -96,7 +96,7 @@ class NationalRailWrapper {
 
     return {
       success: res !== null,
-      data: res,
+      data: res !== null ? res : [],
     };
   }
 }
