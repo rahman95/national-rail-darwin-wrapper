@@ -1,6 +1,7 @@
 {
   "name": "ts-national-rail-wrapper",
-  "version": "1.0.3",
+  "version": "1.0.5",
+  "description": "✨Typescript promise based wrapper for National Rail SOAP API.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -11,7 +12,14 @@
     "lint": "eslint --ext .js,.ts,.tsx ./src",
     "build": "tsc"
   },
-  "repository": "git@github.com:rahman95/ts-national-rail-wrapper.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rahman95/ts-national-rail-wrapper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rahman95/ts-national-rail-wrapper/issues"
+  },
+  "homepage": "https://github.com/rahman95/ts-national-rail-wrapper",
   "author": "Rahman Younus <rahman_95@live.co.uk>",
   "license": "MIT",
   "keywords": [
