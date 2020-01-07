@@ -1,6 +1,6 @@
 {
   "name": "ts-national-rail-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -11,6 +11,15 @@
   "repository": "git@github.com:rahman95/ts-national-rail-wrapper.git",
   "author": "Rahman Younus <rahman_95@live.co.uk>",
   "license": "MIT",
+  "keywords": [
+    "national-rail",
+    "darwin",
+    "trains",
+    "rail",
+    "typescript",
+    "ts",
+    "wrapper"
+  ],
   "devDependencies": {
     "@types/jest": "^24.0.25",
     "@types/node": "^13.1.1",
