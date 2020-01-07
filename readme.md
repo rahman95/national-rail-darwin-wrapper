@@ -1,6 +1,7 @@
 # TS National Rail Wrapper
 
-[![npm version](https://badge.fury.io/js/ts-national-rail-wrapper.svg)](https://badge.fury.io/js/ts-national-rail-wrapper)
+[![npm version](https://img.shields.io/npm/v/ts-national-rail-wrapper.svg?style=flat-square)](https://www.npmjs.org/package/ts-national-rail-wrapper)
+[![npm downloads](https://img.shields.io/npm/dm/ts-national-rail-wrapper.svg?style=flat-square)](http://npm-stat.com/charts.html?package=ts-national-rail-wrapper)
 
 ✨Typescript promise based wrapper for National Rail SOAP API.
 
@@ -57,7 +58,7 @@ const results = await nationalRail.getAll(options)
 ### getServiceDetails - Retrieve Details about a certain Rail Service
 
 ```js
-const options = { serviceId: "LDS" }
+const options = { serviceId: "RAIL_SERVICE_001" }
 const results = await nationalRail.getServiceDetails(options)
 ```
 
