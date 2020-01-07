@@ -2,6 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/ts-national-rail-wrapper.svg?style=flat-square)](https://www.npmjs.org/package/ts-national-rail-wrapper)
 [![npm downloads](https://img.shields.io/npm/dm/ts-national-rail-wrapper.svg?style=flat-square)](http://npm-stat.com/charts.html?package=ts-national-rail-wrapper)
+[![install size](https://packagephobia.now.sh/badge?p=ts-national-rail-wrapper)](https://packagephobia.now.sh/result?p=ts-national-rail-wrapper)
 
 ✨Typescript promise based wrapper for National Rail SOAP API.
 

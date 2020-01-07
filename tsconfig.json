@@ -7,7 +7,7 @@
         "module": "commonJS",
         "sourceMap": true,
         "declaration": true,
-        "outDir": "./dist",
+        "outDir": "./lib",
         "strict": true,
         "target": "es6",
         "typeRoots": ["src/types", "node_modules/@types"]

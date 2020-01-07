@@ -1,8 +1,11 @@
 {
   "name": "ts-national-rail-wrapper",
   "version": "1.0.2",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "/lib"
+  ],
   "scripts": {
     "test": "jest --config jest.config.json --detectOpenHandles",
     "lint": "eslint --ext .js,.ts,.tsx ./src",
