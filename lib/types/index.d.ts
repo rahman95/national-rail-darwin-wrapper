@@ -11,7 +11,8 @@ interface InvokeCallInput {
     filter?: object;
 }
 interface StationCallOptions {
-    station: string;
+    fromStation: string;
+    toStation?: string;
     count?: number;
 }
 interface FilterObject {
