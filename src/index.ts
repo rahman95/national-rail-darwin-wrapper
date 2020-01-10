@@ -55,10 +55,14 @@ class NationalRailWrapper {
     return this.invoke({ methodName, filter }) as Promise<ServiceFormattedResponse>;
   }
 
-  private parseStationOptions({ station, count = 10 }: StationCallOptions): FilterObject {
+  private parseStationOptions({ fromStation, toStation, count = 10 }: StationCallOptions): FilterObject {
     const filter: FilterObject = {
-      crs: station,
+      crs: fromStation,
     };
+
+    if (toStation) {
+      filter.filterCrs = toStation;
+    }
 
     if (count) {
       filter.numRows = count;

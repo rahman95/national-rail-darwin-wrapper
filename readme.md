@@ -7,6 +7,8 @@
 
 ✨Typescript promise based wrapper for National Rail SOAP API.
 
+*Based on API docs found [here](https://lite.realtime.nationalrail.co.uk/OpenLDBWS/)*
+
 ## Prerequisite
 
 - Yarn 🧶
@@ -31,7 +33,7 @@ const nationalRail = new NationalRailWrapper(apiKey)
 
 ...
 
-const results = await nationalRail.getDepartures({ station: "LDS", count: 5 })
+const results = await nationalRail.getDepartures({ fromStation: "LDS", count: 5 })
 ```
 
 ## Methods
@@ -39,21 +41,21 @@ const results = await nationalRail.getDepartures({ station: "LDS", count: 5 })
 ### getDepartures - Retrieve Departures for Station
 
 ```js
-const options = { station: "LDS", count: 5 }
+const options = { fromStation: "LDS", count: 5 }
 const results = await nationalRail.getDepartures(options)
 ```
 
 ### getArrivals - Retrieve Arrivals for Station
 
 ```js
-const options = { station: "LDS", count: 5 }
+const options = { fromStation: "LDS", count: 5 }
 const results = await nationalRail.getArrivals(options)
 ```
 
 ### getAll - Retrieve Both Departures and Arrivals for Station
 
 ```js
-const options = { station: "LDS", count: 10 }
+const options = { fromStation: "LDS", count: 10 }
 const results = await nationalRail.getAll(options)
 ```
 

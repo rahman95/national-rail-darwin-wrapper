@@ -23,7 +23,7 @@ describe('Test Wrapper Class', () => {
       const incorrectApiWrapper = new NationalRailWrapper(apiToken);
 
       try {
-        await incorrectApiWrapper.getDepartures({ station: 'LDS' });
+        await incorrectApiWrapper.getDepartures({ fromStation: 'LDS' });
       } catch (err) {
         expect(err.message).toBe('Cannot parse response');
         expect(err.response.statusCode).toBe(401);
@@ -32,8 +32,8 @@ describe('Test Wrapper Class', () => {
     MAX_TIMEOUT
   );
 
-  test('should return all departures from LDS', async () => {
-    const stationDetails = await apiWrapper.getDepartures({ station: 'LDS' });
+  test('should return all departures from LDS to DEW limit to 5', async () => {
+    const stationDetails = await apiWrapper.getDepartures({ fromStation: 'LDS', toStation: 'DEW', count: 5 });
 
     expect(stationDetails).toHaveProperty('success');
     expect(stationDetails.success).toBeTruthy();
@@ -54,7 +54,7 @@ describe('Test Wrapper Class', () => {
   });
 
   test('should return all departures from LDS limited only to 3', async () => {
-    const stationDetails = await apiWrapper.getDepartures({ station: 'LDS', count: 1 });
+    const stationDetails = await apiWrapper.getDepartures({ fromStation: 'LDS', count: 1 });
 
     expect(stationDetails).toHaveProperty('success');
     expect(stationDetails.success).toBeTruthy();
@@ -64,7 +64,7 @@ describe('Test Wrapper Class', () => {
   });
 
   test('should return all arrivals from LDS', async () => {
-    const stationDetails = await apiWrapper.getArrivals({ station: 'LDS' });
+    const stationDetails = await apiWrapper.getArrivals({ fromStation: 'LDS' });
 
     expect(stationDetails).toHaveProperty('success');
     expect(stationDetails.success).toBeTruthy();
@@ -85,7 +85,7 @@ describe('Test Wrapper Class', () => {
   });
 
   test('should return all arrivals from LDS limited only to 3', async () => {
-    const stationDetails = await apiWrapper.getArrivals({ station: 'LDS', count: 1 });
+    const stationDetails = await apiWrapper.getArrivals({ fromStation: 'LDS', count: 1 });
 
     expect(stationDetails).toHaveProperty('success');
     expect(stationDetails.success).toBeTruthy();
@@ -95,7 +95,7 @@ describe('Test Wrapper Class', () => {
   });
 
   test('should return all arrivals and departutes from LDS', async () => {
-    const stationDetails = await apiWrapper.getAll({ station: 'LDS' });
+    const stationDetails = await apiWrapper.getAll({ fromStation: 'LDS' });
 
     expect(stationDetails).toHaveProperty('success');
     expect(stationDetails.success).toBeTruthy();
@@ -116,7 +116,7 @@ describe('Test Wrapper Class', () => {
   });
 
   test('should return all arrivals and departutes from LDS limited only to 3', async () => {
-    const stationDetails = await apiWrapper.getAll({ station: 'LDS', count: 2 });
+    const stationDetails = await apiWrapper.getAll({ fromStation: 'LDS', count: 2 });
 
     expect(stationDetails).toHaveProperty('success');
     expect(stationDetails.success).toBeTruthy();
@@ -126,7 +126,7 @@ describe('Test Wrapper Class', () => {
   });
 
   test('should return service details for certain serviceId', async () => {
-    const stationDetails = await apiWrapper.getAll({ station: 'LDS', count: 1 });
+    const stationDetails = await apiWrapper.getAll({ fromStation: 'LDS', count: 1 });
     const service = stationDetails.data && stationDetails.data[0];
     const serviceId = service.serviceID;
 

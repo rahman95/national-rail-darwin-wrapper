@@ -16,7 +16,8 @@ interface InvokeCallInput {
 }
 
 interface StationCallOptions {
-  station: string;
+  fromStation: string;
+  toStation?: string;
   count?: number;
 }
 
